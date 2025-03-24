@@ -1,0 +1,17 @@
+ul.check-list li {
+  position: relative;
+  list-style: none;
+}
+ul.check-list li:before {
+  content: "";
+  background: url("https://cdn.prod.website-files.com/6038176f989b272849428964/655320465aa669c5e9a24835_check.svg");
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  position: absolute;
+  left: -25px;
+  top: 5px;
+}
+.wf-force-outline-none[tabindex="-1"]:focus {
+  outline: none;
+}
