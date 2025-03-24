@@ -40,7 +40,12 @@
     />
     <meta property="og:type" content="website" />
     <meta content="summary_large_image" name="twitter:card" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link
       href="./assets/css/oriclehearing.7d3493a19.min.css"
       rel="stylesheet"
@@ -1123,7 +1128,9 @@
           the products and services referred to on this site only provides a
           service where consumers can obtain and compare.
         </p>
-        <p class="p-disclaimer">oriclehearing.com ©2024 All Rights Reserved.</p>
+        <p class="p-disclaimer">
+          oriclehearing.com &copy;2024 All Rights Reserved.
+        </p>
       </div>
     </div>
     <div class="compliance">
@@ -1200,5 +1207,72 @@
       type="module"
       integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"
     ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Fix for mobile menu
+        var menuButton = document.querySelector('[data-collapse="medium"]');
+        var navOverlay = document.getElementById("w-nav-overlay-0");
+
+        if (menuButton) {
+          // Ensure the mobile menu works correctly
+          menuButton.addEventListener("touchend", function (e) {
+            if (window.innerWidth <= 991) {
+              if (navOverlay.style.display === "block") {
+                navOverlay.style.display = "none";
+              } else {
+                navOverlay.style.display = "block";
+              }
+            }
+          });
+        }
+
+        // Fix for buttons and links to work on touch devices
+        var allButtons = document.querySelectorAll(".w-button, a");
+        allButtons.forEach(function (button) {
+          button.addEventListener("touchstart", function () {
+            // This empty handler ensures touch events work properly
+          });
+        });
+
+        // Handle hover states on mobile - convert hover to tap
+        var hoverElements = document.querySelectorAll("[data-w-id]");
+        hoverElements.forEach(function (element) {
+          element.addEventListener("touchstart", function () {
+            this.classList.add("hover");
+          });
+          element.addEventListener("touchend", function () {
+            setTimeout(function () {
+              element.classList.remove("hover");
+            }, 300);
+          });
+        });
+
+        // Fix for forms - ensure they submit correctly on all devices
+        var forms = document.querySelectorAll("form");
+        forms.forEach(function (form) {
+          form.addEventListener("submit", function (e) {
+            // Prevent default only if there's custom form handling
+            var hasCustomHandler = form.hasAttribute("data-custom-submit");
+            if (hasCustomHandler) {
+              e.preventDefault();
+              // Any custom form handling logic would go here
+            }
+          });
+        });
+
+        // Prevent horizontal scrolling on mobile
+        document.body.style.overflowX = "hidden";
+
+        // Update the date display for the update banner
+        var updateDate = document.getElementById("update_date");
+        if (updateDate) {
+          var today = new Date();
+          var dd = String(today.getDate()).padStart(2, "0");
+          var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+          var yyyy = today.getFullYear();
+          updateDate.textContent = mm + "/" + dd + "/" + yyyy;
+        }
+      });
+    </script>
   </body>
 </html>
